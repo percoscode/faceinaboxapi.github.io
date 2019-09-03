@@ -1,23 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 
 const app = express();
-app.use(bodyParser.json());
-
-const getUserId = () => {
-    // const { id } = req.params;
-    // let found = false;
-    // database.users.forEach(user => {
-    //     if (user.id === id) {
-    //         found = true;
-    //         return res.json(user);
-    //     }
-    // })
-    // if (!found) {
-    //     res.status(400).json('not found');
-    // }
-}
 
 const database = {
     users: [
@@ -38,14 +24,10 @@ const database = {
             joined: new Date()
         }
     ]
-    // login: [
-    //     {
-    //         id: '987',
-    //         hash: '',
-    //         email: 'john@aasdgiajrge.com'
-    //     }
-    // ]
 }
+
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send(database.users)
@@ -103,7 +85,6 @@ app.get('/profile/:id', (req, res) => {
     if (!found) {
         res.status(400).json('not found');
     }
-    // getUserId()
 })
 
 app.put('/image', (req, res) => {
@@ -119,7 +100,6 @@ app.put('/image', (req, res) => {
     if (!found) {
         res.status(400).json('not found');
     }
-    // getUserId()
 })
 
 // Load hash from your password DB.
